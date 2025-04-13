@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:
+    ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@
+    0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;
+    1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="OwlCarousel2-2.3.4\OwlCarousel2-2.3.4\dist\assets\owl.carousel.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body, html{
+            font-family: "Poppins", sans-serif;
+            z-index: 0;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #3572ef;
+            position: fixed;
+            width: 100%;
+            z-index: 3;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .cont {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        header .cont {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .main-menu {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .main-menu li a {
+            color: white;
+            display: block;
+            padding: 24px 15px;
+            font-weight: 700;
+            transition: background-color 0.2s linear;
+        }
+
+        .main-menu li a.active {
+            background-color: #3ABEF9;
+        }
+
+        .main-menu li a:hover {
+            background-color: #3ABEF9;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            padding: 15px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        body{
+            background-color: #3ABEF9;
+        }
+
+        .Contacts{
+            color: white;
+            padding-top: 200px;
+            position: relative;
+        }
+
+        .Contacts h1{
+            font-size: 50px;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .Contacts span{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 55px;
+            font-weight: 700;
+            bottom: 0.5%;
+            opacity: 0.2;
+        }
+
+        .Map iframe{
+            border-radius: 20px;
+            display: flex;
+        }
+
+        .row {
+            margin-top: 50px;
+        }
+
+        .col-lg-8 {
+            width: 500px;
+        }
+
+        .col-md-6 .row {
+            margin: 10px;
+            padding: 0;
+        }
+
+        .site-footer {
+            background-color: #050c9c;
+            color: white;
+            padding: 50px 0 20px;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            right: -100%;
+            animation: slideDown 1.5s 2.5s forwards; 
+            margin-top: 170px;
+        }
+
+        @keyframes slideDown {
+            from {
+                right: -100%;
+            }
+            to{
+                right: 0;
+            }
+        }
+            
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+            align-items: start; 
+        }
+        
+        .footer-column {
+            margin-bottom: 30px;
+        }
+        
+        .footer-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 600;
+            height: 50px;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 2px;
+            background: white;
+        }
+        
+        .footer-text {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .footer-menu {
+            list-style: none;
+            margin-top: 10px; 
+        }
+        
+        .footer-menu li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+        
+        .footer-link:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+        
+        .footer-contacts {
+            list-style: none;
+            margin-top: 10px; 
+        }
+        
+        .footer-contacts li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.9;
+        }
+        
+        .footer-contacts i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-copyright {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-legal {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-legal:hover {
+            opacity: 1;
+        }
+
+        .form-floating button{
+            margin-top: 15px;
+        }
+
+
+
+
+        @media(max-width:1320px){
+            .logo{
+                padding-left: 10px;
+            }
+
+            .main-menu li a {
+                font-size: 19px;
+                padding: 22px;
+            }
+
+            .main-menu {
+                margin-right: 40px;
+            }
+
+            .col-lg-8{
+                width: 600px;
+            }
+
+            .container{
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 992px) {
+        .logo {
+            font-size: 24px;
+        }
+    }
+
+        @media(max-width:768px){
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+            }
+
+            .main-menu {
+                flex-direction: column;
+            }
+
+            .main-menu li a {
+                padding: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            header .cont.active nav {
+                max-height: 500px;
+            }
+
+            header .cont.active .menu-toggle span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            header .cont.active .menu-toggle span:nth-child(2) {
+                opacity: 0;
+            }
+
+            header .cont.active .menu-toggle span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .Map{
+                display: flex;
+                justify-content: center;
+                margin-left: 20px;
+            }
+
+            .col-lg-8{
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .row {
+                width: 450px;
+                margin-right: 25px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .footer-title {
+                height: auto;
+            }   
+
+            .footer-column {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-column p{
+                text-align: center;
+                padding: 0px 15px;
+            }
+
+            .footer-contacts li {
+                display: flex;
+                justify-content: center;
+            }
+
+            .footer-menu li{
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 20px;
+            }
+        }       
+
+    .cookie-card {
+      border-radius: 15px;
+      width: 320px;
+      height: 250px;
+      background-color: #fff;
+      bottom: -300px; 
+      animation: slideUp 0.8s ease-out forwards;
+    }
+    
+    .cookie-title {
+      font-size: 20px;
+      position: relative;
+      left: 90px;
+      top: 15px;
+      font-weight: bold;
+      color: rgb(31 41 55);
+    }
+    
+    .cookie-description {
+      position: relative;
+      top: 25px;
+      font-size: 15px;
+      text-align: center;
+      font-family: sans-serif;
+      color: rgb(75 85 99);
+    }
+    
+    .cookies-policy {
+      color: rgb(31 41 55);
+      text-decoration: underline;
+    }
+    
+    .cookies-policy:hover {
+      text-decoration: none;
+    }
+    
+    .cookies-policy:active {
+      color: rgba(31, 41, 55, 0.61);
+    }
+    
+    .accept-button {
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      width: 85px;
+      height: 35px;
+      background-color: rgba(255, 255, 255, 0);
+      position: relative;
+      left: 115px;
+      top: 45px;
+      border: 1px solid rgb(31 41 55);
+      color: rgb(31 41 55);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    @keyframes slideUp {
+        from {
+            bottom: -300px;
+        }
+        to {
+            bottom: 620px; 
+        }
+    }   
+    
+    .accept-button:hover {
+      background-color: rgb(31 41 55);
+      color: #fff;
+      border: rgb(31 41 55);
+    }
+    
+    .accept-button:active {
+      font-weight: 100;
+    }
+
+    .cookie-card{
+        z-index: 99;
+        position: fixed;
+        margin-top: 90px;
+    }
+
+    .cookie{
+        display: flex;
+        justify-content: center;
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+
+    .MainContanerForAnimation {
+        position: relative;
+        right: -100%;
+        animation: slideRight 0.8s ease-out forwards;
+    }
+
+    @keyframes slideRight {
+        from {
+            right: -100%;
+        }
+        to {
+            right: 0;
+        }
+    }
+
+
+
+    </style>  
+</head>
+<body> 
+
+    <div class="cookie">
+        <div class="cookie-card" id="cookieCard">
+            <span class="cookie-title">🍪 COOKIES</span>
+            <p class="cookie-description">
+                Мы гарантируем, что вы получите наилучшие впечатления от использования нашего веб-сайта.
+                <a class="cookies-policy" href="https://www.cookieyes.com/...">Ознакомьтесь с нашей политикой в ​​отношении файлов cookie.</a>
+            </p>
+            <button class="accept-button" id="acceptButton">Accept</button>
+        </div>
+    </div>
+
+    
+    <header>
+        <div class="cont">
+            <a href="Project.html" class="logo">СИТИЭЛЕКТРОМОНТАЖ</a>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="Project.html">ГЛАВНАЯ</a></li>
+                    <li><a href="AboutUs.html">О КОМПАНИИ</a></li>
+                    <li><a href="Vacancies.html">ВАКАНСИИ</a></li>
+                    <li><a href="Contacts.html" class="active">КОНТАКТЫ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<div class="MainContanerForAnimation">
+
+    <div class="Contacts">
+        <span>КОНТАКТЫ</span>
+        <h1>КОНТАКТЫ</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="contactForm">
+                            <form id="form-floating mb-3">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control is-invalid" id="name" type="text"    data-sb-validations="required" data-sb-can-submit="no">
+                                    <label for="name">Имя</label>
+                                </div>
+    
+                                <div class="form-floating mb-3">
+                                    <input class="form-control is-invalid" id="surname" type="text"  data-sb-validations="required,name" data-sb-can-submit="no">
+                                    <label for="surname">Фамилия</label>
+                                </div>
+                                
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="phone" type="tel"  data-sb-validations="required" data-sb-can-submit="no">
+                                    <label for="phone">Номер телефона</label>
+                                </div>
+    
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="message" type="text"  style="height: 10rem" data-sb-validations="required" data-sb-can-submit="no"></textarea>
+                                    <label for="message">Сообщение</label>
+    
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="submitBtn">
+                                        Отправить
+                                      </button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-body">
+                                              Спасибо за отправленный отзыв, мы скоро Вам ответим! (На отзывы без вписанных данных мы не отвечаем).
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Готово</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Map col-md-6">          
+                <iframe src="https://yandex.by/map-widget/v1/?ll=27.509044%2C53.918469&mode=whatshere&whatshere%5Bpoint%5D=27.507771%2C53.918689&whatshere%5Bzoom%5D=17&z=17.09" width="560" height="400" frameborder="1" allowfullscreen="true"></iframe>
+            </div>
+        </div> 
+    </div>
+</div> 
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3 class="footer-title">ООО "СИТИЭЛЕКТРОМОНТАЖ"</h3>
+            <p class="footer-text">Мы - организация, на которую можно положиться. Профессионализм и качество - это наша работа.</p>
+            <div class="footer-social">
+                <a href="https://vk.com" class="social-link"><i class="fab fa-vk"></i></a>
+                <a href="https://telegram.org" class="social-link"><i class="fab fa-telegram"></i></a>
+                <a href="https://www.whatsapp.com/?lang=ru_RU" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://mail.ru/" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-column">
+            <h3 class="footer-title">Навигация</h3>
+            <ul class="footer-menu">
+                <li><a href="Project.html" class="footer-link">Главная</a></li>
+                <li><a href="AboutUs.html" class="footer-link">О компании</a></li>
+                <li><a href="Vacancies.html" class="footer-link">Вакансии</a></li>
+                <li><a href="Contacts.html" class="footer-link">Контакты</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3 class="footer-title">Контакты</h3>
+            <ul class="footer-contacts">
+                <li><i class="fas fa-map-marker-alt"></i> Адрес: Минск, ул. Ольшевского 16А.</li>
+                <li><i class="fas fa-phone"></i> Телефон: +375 29 622 70 80</li>
+                <li><i class="fas fa-envelope"></i> Email: sitisem@mail.ru</li>
+                <li><i class="fas fa-clock"></i> Режим работы: 8:00 - 17:30</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <div class="footer-copyright">
+            &copy; 2025 ООО "СИТИЭЛЕКТРОМОНТАЖ". Все права защищены.
+        </div>
+        <div class="footer-links">
+            <a href="https://checko.ru/by/company/sitiehlektromontazh-191843640" class="footer-legal">Политика конфиденциальности</a>
+            <a href="https://checko.ru/by/company/sitiehlektromontazh-191843640" class="footer-legal">Пользовательское соглашение</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"> </script>
+    <script src="./bootstrap.min.js"> </script>
+    <script src= "Contacts.js"></script>
+
+    <div class="modal-backdrop fade show"></div>
+</body>
+</html>

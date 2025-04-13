@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:
+    ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@
+    0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;
+    1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
+    rel="stylesheet">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>Document</title>
+    <style>
+header {
+    background-color: #3572ef;
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.cont {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+header .cont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    padding: 15px 0;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-menu li a {
+    color: white;
+    display: block;
+    padding: 20px 15px;
+    font-weight: 700;
+    transition: background-color 0.2s linear;
+}
+
+.main-menu li a.active {
+    background-color: #3ABEF9;
+}
+
+.main-menu li a:hover {
+    background-color: #3ABEF9;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    padding: 15px;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+    .logo {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    nav {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+    
+    .main-menu {
+        flex-direction: column;
+    }
+    
+    .main-menu li a {
+        padding: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    header .cont.active nav {
+        max-height: 500px;
+    }
+    
+    header .cont.active .menu-toggle span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    header .cont.active .menu-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    header .cont.active .menu-toggle span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="cont">
+            <a href="Project.html" class="logo">СИТИЭЛЕКТРОМОНТАЖ</a>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="Project.html">ГЛАВНАЯ</a></li>
+                    <li><a href="AboutUs.html">О КОМПАНИИ</a></li>
+                    <li><a href="Vacancies.html">ВАКАНСИИ</a></li>
+                    <li><a href="Contacts.html" class="active">КОНТАКТЫ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"> </script>
+    <script src="./bootstrap.min.js"> </script>
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('header .cont').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Document</title>
+    <style>
+        /* Стили для футера */
+        .site-footer {
+            background-color: #050c9c;
+            color: white;
+            padding: 50px 0 20px;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+            align-items: start; /* Добавлено для выравнивания по верху */
+        }
+        
+        .footer-column {
+            margin-bottom: 30px;
+        }
+        
+        .footer-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 600;
+            height: 50px; /* Фиксированная высота для заголовков */
+            display: flex;
+            align-items: flex-end; /* Выравнивание текста заголовка по низу */
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: white;
+        }
+        
+        .footer-text {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .footer-menu {
+            list-style: none;
+            margin-top: 10px; /* Добавлено для выравнивания */
+        }
+        
+        .footer-menu li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+        
+        .footer-link:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+        
+        .footer-contacts {
+            list-style: none;
+            margin-top: 10px; /* Добавлено для выравнивания */
+        }
+        
+        .footer-contacts li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.9;
+        }
+        
+        .footer-contacts i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-copyright {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-legal {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-legal:hover {
+            opacity: 1;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .footer-title {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3 class="footer-title">ООО "***********"</h3>
+                <p class="footer-text">Мы - организация, на которую можно положиться. Профессионализм и качество.</p>
+                <div class="footer-social">
+                    <a href="https://vk.com" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="https://telegram.org" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="https://www.whatsapp.com/?lang=ru_RU" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://mail.ru/" class="social-link"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="footer-title">Навигация</h3>
+                <ul class="footer-menu">
+                    <li><a href="Project.html" class="footer-link">Главная</a></li>
+                    <li><a href="AboutUs.html" class="footer-link">Об организации</a></li>
+                    <li><a href="Vacancies.html" class="footer-link">Вакансии</a></li>
+                    <li><a href="Contacts.html" class="footer-link">Контакты</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="footer-title">Контакты</h3>
+                <ul class="footer-contacts">
+                    <li><i class="fas fa-map-marker-alt"></i> Адрес: Минск, ул. Ольшевского 16А.</li>
+                    <li><i class="fas fa-phone"></i> Телефон: +375 29 669 72 89</li>
+                    <li><i class="fas fa-envelope"></i> Email: sitisem@mail.ru</li>
+                    <li><i class="fas fa-clock"></i> Режим работы: 8:00 - 16:00</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                &copy; 2025 ООО "***********". Все права защищены.
+            </div>
+            <div class="footer-links">
+                <a href="https://checko.ru/by/company/sitiehlektromontazh-191843640" class="footer-legal">Политика конфиденциальности</a>
+                <a href="https://checko.ru/by/company/sitiehlektromontazh-191843640" class="footer-legal">Пользовательское соглашение</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> -->
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .spinner {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(farthest-side,#0000 40%,#6121d1 41%);
+  background: linear-gradient(0deg ,rgba(97,33,209,0.5) 50%,rgba(97,33,209,1) 0) center/4.5px 100%,
+        linear-gradient(90deg,rgba(97,33,209,0.25) 50%,rgba(97,33,209,0.75) 0) center/100% 4.5px;
+  background-repeat: no-repeat;
+  animation: spinner-d3o0rx 1s infinite steps(12);
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.915;
+  transform: rotate(30deg);
+}
+
+.spinner::after {
+  opacity: 0.83;
+  transform: rotate(60deg);
+}
+
+@keyframes spinner-d3o0rx {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="spinner"></div>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Universe - Всё о Minecraft</title>
+    <style>
+        /* Глобальные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background-color: #2d2d2d;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .logo h1 {
+            color: #4CAF50;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: #4CAF50;
+            background-color: #3d3d3d;
+        }
+        
+        /* Основное содержимое */
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        /* Герой-секция */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1627855437693-dcc7b0c4ba7b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Секции */
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: #4CAF50;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+        
+        /* Блоки с информацией */
+        .info-blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .info-block {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .info-block:hover {
+            transform: translateY(-10px);
+        }
+        
+        .info-block img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .info-content {
+            padding: 20px;
+        }
+        
+        .info-content h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+        
+        .info-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        /* Галерея */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            height: 200px;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        /* Форма подписки */
+        .newsletter {
+            background-color: #2d2d2d;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+        
+        .newsletter p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        .form-group {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+        
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 0 5px 5px 0;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+        
+        /* Подвал */
+        footer {
+            background-color: #1e1e1e;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .footer-column h3 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #4CAF50;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: #ddd;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #4CAF50;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #3d3d3d;
+            color: #aaa;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+                padding: 0 20px;
+            }
+            
+            .form-group {
+                flex-direction: column;
+            }
+            
+            .form-group input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .form-group button {
+                border-radius: 5px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://www.minecraft.net/content/dam/minecraft/touchup-2020/minecraft-logo.svg" alt="Minecraft Logo">
+                <h1>Minecraft Universe</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">О игре</a></li>
+                    <li><a href="#versions">Версии</a></li>
+                    <li><a href="#gallery">Галерея</a></li>
+                    <li><a href="#community">Сообщество</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section id="home" class="hero">
+            <h2>Добро пожаловать в мир Minecraft!</h2>
+            <p>Откройте для себя бесконечные возможности строительства, исследования и выживания в самой популярной песочнице всех времен.</p>
+            <a href="#about" class="btn">Узнать больше</a>
+        </section>
+        
+        <section id="about" class="section">
+            <h2 class="section-title">О Minecraft</h2>
+            <p>Minecraft — это игра-песочница, разработанная Mojang Studios, где игроки могут исследовать процедурно генерируемый мир, добывать ресурсы, создавать инструменты и строить невероятные сооружения.</p>
+            
+            <div class="info-blocks">
+                <div class="info-block">
+                    <img src="https://images.unsplash.com/photo-1587573089734-599851b0c6b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Minecraft Building">
+                    <div class="info-content">
+                        <h3>Творческий режим</h3>
+                        <p>В творческом режиме у вас есть неограниченные ресурсы, чтобы строить все, что вы можете вообразить - от маленьких домов до гигантских механических сооружений.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://images.unsplash.com/photo-1627855437693-dcc7b0c4ba7b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Minecraft Survival">
+                    <div class="info-content">
+                        <h3>Режим выживания</h3>
+                        <p>Добывайте ресурсы, сражайтесь с мобами, выращивайте еду и выживайте в опасном мире, где ночь приносит опасных существ.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://images.unsplash.com/photo-1627855437445-ff8ce303d8a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Minecraft Redstone">
+                    <div class="info-content">
+                        <h3>Редстоун и механизмы</h3>
+                        <p>Создавайте сложные механизмы, автоматические фермы и даже программируемые компьютеры с помощью редстоуна - аналога электричества в Minecraft.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="versions" class="section">
+            <h2 class="section-title">Версии Minecraft</h2>
+            <p>Minecraft доступен на множестве платформ и имеет несколько редакций, каждая со своими особенностями.</p>
+            
+            <div class="info-blocks">
+                <div class="info-block">
+                    <img src="https://www.minecraft.net/content/dam/minecraft/touchup-2020/minecraft-java-edition-keyart-1200x630.jpg" alt="Java Edition">
+                    <div class="info-content">
+                        <h3>Java Edition</h3>
+                        <p>Оригинальная версия для ПК с поддержкой модов, скинов и пользовательских серверов. Доступна только на Windows, macOS и Linux.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://www.minecraft.net/content/dam/minecraft/touchup-2020/minecraft-bedrock-edition-keyart-1200x630.jpg" alt="Bedrock Edition">
+                    <div class="info-content">
+                        <h3>Bedrock Edition</h3>
+                        <p>Кроссплатформенная версия для Windows 10, мобильных устройств и консолей с поддержкой кросс-платформенной игры.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://www.minecraft.net/content/dam/minecraft/touchup-2020/minecraft-dungeons-keyart-1200x630.jpg" alt="Minecraft Dungeons">
+                    <div class="info-content">
+                        <h3>Minecraft Dungeons</h3>
+                        <p>Приключенческая ролевая игра в мире Minecraft с элементами hack and slash и кооперативным режимом до 4 игроков.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="section">
+            <h2 class="section-title">Галерея построек</h2>
+            <p>Вдохновитесь невероятными творениями сообщества Minecraft со всего мира.</p>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://static.planetminecraft.com/files/resource_media/screenshot/1325/2013-01-19_214503_5754237_lrg.jpg" alt="Город в Minecraft">
+                    <div class="gallery-caption">Мегаполис в Minecraft</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://static.planetminecraft.com/files/resource_media/screenshot/1325/2013-01-19_214503_5754237_lrg.jpg" alt="Замок в Minecraft">
+                    <div class="gallery-caption">Величественный замок</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://static.planetminecraft.com/files/resource_media/screenshot/1325/2013-01-19_214503_5754237_lrg.jpg" alt="Ферма в Minecraft">
+                    <div class="gallery-caption">Автоматическая ферма</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://static.planetminecraft.com/files/resource_media/screenshot/1325/2013-01-19_214503_5754237_lrg.jpg" alt="Пейзаж в Minecraft">
+                    <div class="gallery-caption">Живописный пейзаж</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://static.planetminecraft.com/files/resource_media/screenshot/1325/2013-01-19_214503_5754237_lrg.jpg" alt="Механизм в Minecraft">
+                    <div class="gallery-caption">Сложный редстоун-механизм</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://static.planetminecraft.com/files/resource_media/screenshot/1325/2013-01-19_214503_5754237_lrg.jpg" alt="Парк в Minecraft">
+                    <div class="gallery-caption">Парк развлечений</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="community" class="section">
+            <h2 class="section-title">Сообщество</h2>
+            <p>Присоединяйтесь к миллионам игроков по всему миру, делитесь своими постройками и находите новых друзей.</p>
+            
+            <div class="info-blocks">
+                <div class="info-block">
+                    <img src="https://www.minecraft.net/content/dam/minecraft/touchup-2020/minecraft-marketplace-keyart-1200x630.jpg" alt="Minecraft Marketplace">
+                    <div class="info-content">
+                        <h3>Маркетплейс</h3>
+                        <p>Откройте для себя удивительные миры, скины и текстуры, созданные сообществом и доступные для покупки.</p>
+                        <a href="#" class="btn">Посетить</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://www.minecraft.net/content/dam/minecraft/touchup-2020/minecraft-servers-keyart-1200x630.jpg" alt="Minecraft Servers">
+                    <div class="info-content">
+                        <h3>Серверы</h3>
+                        <p>Играйте на тысячах серверов с уникальными режимами - от выживания до мини-игр и RPG.</p>
+                        <a href="#" class="btn">Найти сервер</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://www.minecraft.net/content/dam/minecraft/touchup-2020/minecraft-mods-keyart-1200x630.jpg" alt="Minecraft Mods">
+                    <div class="info-content">
+                        <h3>Моды</h3>
+                        <p>Расширьте возможности игры с тысячами модов, добавляющих новые измерения, мобов, механизмы и многое другое.</p>
+                        <a href="#" class="btn">Исследовать</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="newsletter">
+                <h2>Подпишитесь на нашу рассылку</h2>
+                <p>Будьте в курсе последних новостей Minecraft, обновлений и эксклюзивных материалов.</p>
+                <div class="form-group">
+                    <input type="email" placeholder="Ваш email">
+                    <button type="submit">Подписаться</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Minecraft Universe</h3>
+                <p>Самый полный ресурс о Minecraft на русском языке. Новости, гайды, туториалы и многое другое.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Разделы</h3>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">О игре</a></li>
+                    <li><a href="#versions">Версии</a></li>
+                    <li><a href="#gallery">Галерея</a></li>
+                    <li><a href="#community">Сообщество</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Ресурсы</h3>
+                <ul>
+                    <li><a href="#">Гайды</a></li>
+                    <li><a href="#">Рецепты крафта</a></li>
+                    <li><a href="#">Список мобов</a></li>
+                    <li><a href="#">Биомы</a></li>
+                    <li><a href="#">Достижения</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Полезные ссылки</h3>
+                <ul>
+                    <li><a href="https://www.minecraft.net/" target="_blank">Официальный сайт</a></li>
+                    <li><a href="https://feedback.minecraft.net/" target="_blank">Отзывы и предложения</a></li>
+                    <li><a href="https://help.minecraft.net/" target="_blank">Поддержка</a></li>
+                    <li><a href="https://account.mojang.com/" target="_blank">Аккаунт Mojang</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Minecraft Universe. Все права защищены. Minecraft является товарным знаком Mojang Studios.</p>
+        </div>
+    </footer>
+    
+    <!-- Иконки Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

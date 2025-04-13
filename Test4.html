@@ -1,0 +1,318 @@
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настольный теннис против компьютера</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        #game-container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background-color: #000;
+            border: 2px solid #555;
+            overflow: hidden;
+        }
+        
+        #paddle-player {
+            position: absolute;
+            width: 15px;
+            height: 100px;
+            background-color: #fff;
+            left: 20px;
+            top: 200px;
+            border-radius: 5px;
+        }
+        
+        #paddle-computer {
+            position: absolute;
+            width: 15px;
+            height: 100px;
+            background-color: #fff;
+            right: 20px;
+            top: 200px;
+            border-radius: 5px;
+        }
+        
+        #ball {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+            border-radius: 50%;
+            left: 392.5px;
+            top: 242.5px;
+        }
+        
+        #score {
+            position: absolute;
+            color: white;
+            font-size: 40px;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        #center-line {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: #333;
+            left: 50%;
+        }
+        
+        #start-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        
+        #start-button {
+            margin-top: 20px;
+            padding: 10px 30px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #start-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="center-line"></div>
+        <div id="paddle-player"></div>
+        <div id="paddle-computer"></div>
+        <div id="ball"></div>
+        <div id="score">0 : 0</div>
+        
+        <div id="start-screen">
+            <h1>Настольный теннис</h1>
+            <p>Используйте мышь или стрелки вверх/вниз для управления ракеткой</p>
+            <button id="start-button">Начать игру</button>
+        </div>
+    </div>
+
+    <script>
+        // Элементы игры
+        const gameContainer = document.getElementById('game-container');
+        const paddlePlayer = document.getElementById('paddle-player');
+        const paddleComputer = document.getElementById('paddle-computer');
+        const ball = document.getElementById('ball');
+        const scoreElement = document.getElementById('score');
+        const startScreen = document.getElementById('start-screen');
+        const startButton = document.getElementById('start-button');
+        
+        // Размеры игрового поля
+        const gameWidth = gameContainer.offsetWidth;
+        const gameHeight = gameContainer.offsetHeight;
+        
+        // Параметры игры
+        let playerScore = 0;
+        let computerScore = 0;
+        let gameRunning = false;
+        let animationId;
+        
+        // Параметры мяча
+        const ballSize = 15;
+        let ballX = gameWidth / 2 - ballSize / 2;
+        let ballY = gameHeight / 2 - ballSize / 2;
+        let ballSpeedX = 5;
+        let ballSpeedY = 5;
+        
+        // Параметры ракеток
+        const paddleWidth = 15;
+        const paddleHeight = 100;
+        let playerPaddleY = gameHeight / 2 - paddleHeight / 2;
+        let computerPaddleY = gameHeight / 2 - paddleHeight / 2;
+        const paddleSpeed = 8;
+        const computerPaddleSpeed = 5;
+        
+        // Управление с клавиатуры
+        let upPressed = false;
+        let downPressed = false;
+        
+        // Обработчики событий
+        startButton.addEventListener('click', startGame);
+        gameContainer.addEventListener('mousemove', movePlayerPaddle);
+        document.addEventListener('keydown', keyDownHandler);
+        document.addEventListener('keyup', keyUpHandler);
+        
+        // Функции
+        function startGame() {
+            startScreen.style.display = 'none';
+            resetBall();
+            gameRunning = true;
+            updateGame();
+        }
+        
+        function movePlayerPaddle(e) {
+            if (!gameRunning) return;
+            
+            // Получаем относительные координаты мыши внутри игрового поля
+            const rect = gameContainer.getBoundingClientRect();
+            const relativeY = e.clientY - rect.top;
+            
+            // Устанавливаем позицию ракетки
+            playerPaddleY = relativeY - paddleHeight / 2;
+            
+            // Ограничиваем, чтобы ракетка не выходила за пределы поля
+            if (playerPaddleY < 0) {
+                playerPaddleY = 0;
+            } else if (playerPaddleY > gameHeight - paddleHeight) {
+                playerPaddleY = gameHeight - paddleHeight;
+            }
+            
+            paddlePlayer.style.top = playerPaddleY + 'px';
+        }
+        
+        function keyDownHandler(e) {
+            if (e.key === 'ArrowUp') {
+                upPressed = true;
+            } else if (e.key === 'ArrowDown') {
+                downPressed = true;
+            }
+        }
+        
+        function keyUpHandler(e) {
+            if (e.key === 'ArrowUp') {
+                upPressed = false;
+            } else if (e.key === 'ArrowDown') {
+                downPressed = false;
+            }
+        }
+        
+        function updateGame() {
+            if (!gameRunning) return;
+            
+            // Движение мяча
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+            
+            // Отскок от верхней и нижней границы
+            if (ballY <= 0 || ballY >= gameHeight - ballSize) {
+                ballSpeedY = -ballSpeedY;
+            }
+            
+            // Проверка столкновения с ракеткой игрока
+            if (
+                ballX <= paddleWidth + 20 && 
+                ballY + ballSize >= playerPaddleY && 
+                ballY <= playerPaddleY + paddleHeight
+            ) {
+                // Увеличиваем скорость после каждого удара
+                ballSpeedX = Math.abs(ballSpeedX) * 1.05;
+                
+                // Изменяем угол отскока в зависимости от того, куда попали по ракетке
+                const hitPosition = (ballY - (playerPaddleY + paddleHeight / 2)) / (paddleHeight / 2);
+                ballSpeedY = hitPosition * 7;
+                
+                // Меняем направление
+                ballSpeedX = -ballSpeedX;
+            }
+            
+            // Проверка столкновения с ракеткой компьютера
+            if (
+                ballX >= gameWidth - paddleWidth - 20 - ballSize && 
+                ballY + ballSize >= computerPaddleY && 
+                ballY <= computerPaddleY + paddleHeight
+            ) {
+                // Увеличиваем скорость после каждого удара
+                ballSpeedX = -Math.abs(ballSpeedX) * 1.05;
+                
+                // Изменяем угол отскока
+                const hitPosition = (ballY - (computerPaddleY + paddleHeight / 2)) / (paddleHeight / 2);
+                ballSpeedY = hitPosition * 7;
+            }
+            
+            // Проверка выхода мяча за границы (гол)
+            if (ballX < 0) {
+                computerScore++;
+                updateScore();
+                resetBall();
+            } else if (ballX > gameWidth) {
+                playerScore++;
+                updateScore();
+                resetBall();
+            }
+            
+            // Управление ракеткой компьютера
+            // Компьютер следует за мячом, но с некоторой задержкой
+            const computerPaddleCenter = computerPaddleY + paddleHeight / 2;
+            const ballCenter = ballY + ballSize / 2;
+            
+            if (computerPaddleCenter < ballCenter - 10) {
+                computerPaddleY += computerPaddleSpeed;
+            } else if (computerPaddleCenter > ballCenter + 10) {
+                computerPaddleY -= computerPaddleSpeed;
+            }
+            
+            // Ограничение, чтобы ракетка компьютера не выходила за пределы поля
+            if (computerPaddleY < 0) {
+                computerPaddleY = 0;
+            } else if (computerPaddleY > gameHeight - paddleHeight) {
+                computerPaddleY = gameHeight - paddleHeight;
+            }
+            
+            // Управление ракеткой игрока с клавиатуры
+            if (upPressed && playerPaddleY > 0) {
+                playerPaddleY -= paddleSpeed;
+            } else if (downPressed && playerPaddleY < gameHeight - paddleHeight) {
+                playerPaddleY += paddleSpeed;
+            }
+            
+            // Обновление позиций элементов
+            ball.style.left = ballX + 'px';
+            ball.style.top = ballY + 'px';
+            paddlePlayer.style.top = playerPaddleY + 'px';
+            paddleComputer.style.top = computerPaddleY + 'px';
+            
+            // Продолжаем анимацию
+            animationId = requestAnimationFrame(updateGame);
+        }
+        
+        function resetBall() {
+            // Возвращаем мяч в центр
+            ballX = gameWidth / 2 - ballSize / 2;
+            ballY = gameHeight / 2 - ballSize / 2;
+            
+            // Случайное направление
+            ballSpeedX = (Math.random() > 0.5 ? 1 : -1) * 5;
+            ballSpeedY = (Math.random() * 4 - 2);
+            
+            // Ждем 1 секунду перед возобновлением игры
+            gameRunning = false;
+            setTimeout(() => {
+                gameRunning = true;
+                updateGame();
+            }, 1000);
+        }
+        
+        function updateScore() {
+            scoreElement.textContent = `${playerScore} : ${computerScore}`;
+        }
+    </script>
+</body>
+</html> -->

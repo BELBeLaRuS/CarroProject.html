@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World of Tanks Portal | Всё о танках</title>
+    <style>
+        /* Глобальные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background: linear-gradient(to right, #1a1a1a, #2a2a2a);
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #d4af37;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .logo h1 {
+            color: #d4af37;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: #d4af37;
+            background-color: #333333;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Основное содержимое */
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        /* Герой-секция */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1589476993333-55052c8ca43b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #d4af37;
+            color: #1a1a1a;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c9a227;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        
+        /* Секции */
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            color: #d4af37;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d4af37;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: #d4af37;
+        }
+        
+        /* Блоки с информацией */
+        .info-blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .info-block {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+        
+        .info-block:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+            border-color: #d4af37;
+        }
+        
+        .info-block img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #d4af37;
+        }
+        
+        .info-content {
+            padding: 20px;
+        }
+        
+        .info-content h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #d4af37;
+        }
+        
+        .info-content p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+        
+        .info-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        /* Галерея танков */
+        .tank-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .tank-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            height: 300px;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+        
+        .tank-card:hover {
+            transform: scale(1.05);
+            border-color: #d4af37;
+        }
+        
+        .tank-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .tank-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .tank-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .tank-card:hover .tank-info {
+            transform: translateY(0);
+        }
+        
+        .tank-info h3 {
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+        
+        .tank-info .nation {
+            display: inline-block;
+            background-color: #333;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        /* Таблица характеристик */
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stats-table th {
+            background-color: #d4af37;
+            color: #1a1a1a;
+            text-align: left;
+            padding: 12px 15px;
+            font-weight: 600;
+        }
+        
+        .stats-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            color: #ccc;
+        }
+        
+        .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .stats-table tr:hover td {
+            background-color: #222;
+            color: #fff;
+        }
+        
+        /* Форма подписки */
+        .newsletter {
+            background: linear-gradient(to right, #1a1a1a, #2a2a2a);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 50px;
+            border: 1px solid #333;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 20px;
+            color: #d4af37;
+            font-size: 28px;
+        }
+        
+        .newsletter p {
+            margin-bottom: 30px;
+            font-size: 18px;
+            color: #ccc;
+        }
+        
+        .form-group {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .form-group input::placeholder {
+            color: #999;
+        }
+        
+        .form-group button {
+            background-color: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 0 5px 5px 0;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .form-group button:hover {
+            background-color: #c9a227;
+        }
+        
+        /* Подвал */
+        footer {
+            background: linear-gradient(to right, #1a1a1a, #2a2a2a);
+            padding: 50px 0 20px;
+            margin-top: 50px;
+            border-top: 2px solid #d4af37;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .footer-column h3 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #d4af37;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #d4af37;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            color: #d4af37;
+            border-radius: 50%;
+            transition: all 0.3s;
+            font-size: 18px;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background-color: #d4af37;
+            color: #1a1a1a;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero {
+                height: 400px;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .hero-buttons {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+            
+            .form-group {
+                flex-direction: column;
+            }
+            
+            .form-group input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .form-group button {
+                border-radius: 5px;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .info-blocks {
+                grid-template-columns: 1fr;
+            }
+            
+            .tank-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://worldoftanks.com/dcont/fb/image/wot_logo_letters.png" alt="World of Tanks Logo">
+                <h1>WoT Portal</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#news">Новости</a></li>
+                    <li><a href="#tanks">Танки</a></li>
+                    <li><a href="#guides">Гайды</a></li>
+                    <li><a href="#community">Сообщество</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>World of Tanks - Стань легендой танковых сражений!</h2>
+                <p>Присоединяйтесь к миллионам игроков по всему миру в эпических битвах на легендарных танках XX века.</p>
+                <div class="hero-buttons">
+                    <a href="#tanks" class="btn">Исследовать танки</a>
+                    <a href="https://worldoftanks.com" target="_blank" class="btn btn-outline">Играть сейчас</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="news" class="section">
+            <h2 class="section-title">Последние новости</h2>
+            <p>Будьте в курсе всех обновлений и событий в мире World of Tanks.</p>
+            
+            <div class="info-blocks">
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tank_catalog_2024.jpg" alt="Обновление 2024">
+                    <div class="info-content">
+                        <h3>Глобальное обновление 2024</h3>
+                        <p>В игру добавлены новые карты, техника и балансные изменения. Узнайте все подробности о масштабном обновлении.</p>
+                        <div class="info-meta">
+                            <span><i class="far fa-calendar-alt"></i> 15.05.2024</span>
+                            <span><i class="far fa-eye"></i> 24.5K</span>
+                        </div>
+                        <a href="#" class="btn">Читать далее</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/new_tanks_2024.jpg" alt="Новые танки">
+                    <div class="info-content">
+                        <h3>5 новых танков в игре</h3>
+                        <p>В этом месяце в игру добавлены 5 новых машин из разных наций. Узнайте их характеристики и тактики применения.</p>
+                        <div class="info-meta">
+                            <span><i class="far fa-calendar-alt"></i> 01.05.2024</span>
+                            <span><i class="far fa-eye"></i> 18.7K</span>
+                        </div>
+                        <a href="#" class="btn">Читать далее</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tournament_2024.jpg" alt="Турнир">
+                    <div class="info-content">
+                        <h3>Кубок чемпионов 2024</h3>
+                        <p>Началась регистрация на крупнейший турнир года с призовым фондом $500,000. Условия участия и расписание матчей.</p>
+                        <div class="info-meta">
+                            <span><i class="far fa-calendar-alt"></i> 20.04.2024</span>
+                            <span><i class="far fa-eye"></i> 32.1K</span>
+                        </div>
+                        <a href="#" class="btn">Читать далее</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="tanks" class="section">
+            <h2 class="section-title">Коллекция танков</h2>
+            <p>Исследуйте легендарные боевые машины из разных стран и эпох.</p>
+            
+            <div class="tank-gallery">
+                <div class="tank-card">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tank_t-34.jpg" alt="Т-34">
+                    <div class="tank-info">
+                        <span class="nation">СССР</span>
+                        <h3>Т-34</h3>
+                        <p>Средний танк V уровня</p>
+                    </div>
+                </div>
+                
+                <div class="tank-card">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tank_tiger.jpg" alt="Tiger I">
+                    <div class="tank-info">
+                        <span class="nation">Германия</span>
+                        <h3>Tiger I</h3>
+                        <p>Тяжёлый танк VII уровня</p>
+                    </div>
+                </div>
+                
+                <div class="tank-card">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tank_sherman.jpg" alt="M4 Sherman">
+                    <div class="tank-info">
+                        <span class="nation">США</span>
+                        <h3>M4 Sherman</h3>
+                        <p>Средний танк V уровня</p>
+                    </div>
+                </div>
+                
+                <div class="tank-card">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tank_cromwell.jpg" alt="Cromwell">
+                    <div class="tank-info">
+                        <span class="nation">Великобритания</span>
+                        <h3>Cromwell</h3>
+                        <p>Средний танк VI уровня</p>
+                    </div>
+                </div>
+                
+                <div class="tank-card">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tank_amx_13_75.jpg" alt="AMX 13 75">
+                    <div class="tank-info">
+                        <span class="nation">Франция</span>
+                        <h3>AMX 13 75</h3>
+                        <p>Лёгкий танк VII уровня</p>
+                    </div>
+                </div>
+                
+                <div class="tank-card">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tank_type_59.jpg" alt="Type 59">
+                    <div class="tank-info">
+                        <span class="nation">Китай</span>
+                        <h3>Type 59</h3>
+                        <p>Средний танк VIII уровня</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center" style="margin-top: 30px;">
+                <a href="#" class="btn">Смотреть всю коллекцию</a>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">Топовые танки</h2>
+            <p>Рейтинг самых популярных и эффективных машин по данным за последний месяц.</p>
+            
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Танк</th>
+                        <th>Нация</th>
+                        <th>Уровень</th>
+                        <th>Победы</th>
+                        <th>Урон</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Object 279 ранний</td>
+                        <td>СССР</td>
+                        <td>X</td>
+                        <td>58.7%</td>
+                        <td>2,850</td>
+                    </tr>
+                    <tr>
+                        <td>Chieftain Mk.6</td>
+                        <td>Великобритания</td>
+                        <td>X</td>
+                        <td>57.9%</td>
+                        <td>2,790</td>
+                    </tr>
+                    <tr>
+                        <td>EBR 105</td>
+                        <td>Франция</td>
+                        <td>X</td>
+                        <td>56.3%</td>
+                        <td>2,650</td>
+                    </tr>
+                    <tr>
+                        <td>STB-1</td>
+                        <td>Япония</td>
+                        <td>X</td>
+                        <td>55.8%</td>
+                        <td>2,610</td>
+                    </tr>
+                    <tr>
+                        <td>Progetto 65</td>
+                        <td>Италия</td>
+                        <td>X</td>
+                        <td>55.2%</td>
+                        <td>2,580</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="guides" class="section">
+            <h2 class="section-title">Гайды и тактики</h2>
+            <p>Улучшите свои навыки с нашими подробными руководствами.</p>
+            
+            <div class="info-blocks">
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/guide_map_strategy.jpg" alt="Тактики на картах">
+                    <div class="info-content">
+                        <h3>Тактики для всех карт</h3>
+                        <p>Подробный разбор ключевых позиций и тактик для каждой карты в игре. Узнайте, где занимать выгодные позиции.</p>
+                        <div class="info-meta">
+                            <span><i class="far fa-clock"></i> 15 мин</span>
+                            <span><i class="fas fa-level-up-alt"></i> Средний</span>
+                        </div>
+                        <a href="#" class="btn">Читать гайд</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/guide_crew_skills.jpg" alt="Умения экипажа">
+                    <div class="info-content">
+                        <h3>Лучшие умения экипажа</h3>
+                        <p>Какие умения выбирать для разных типов танков? Полное руководство по прокачке экипажа.</p>
+                        <div class="info-meta">
+                            <span><i class="far fa-clock"></i> 10 мин</span>
+                            <span><i class="fas fa-level-up-alt"></i> Начинающий</span>
+                        </div>
+                        <a href="#" class="btn">Читать гайд</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/guide_equipment.jpg" alt="Оборудование">
+                    <div class="info-content">
+                        <h3>Оптимальное оборудование</h3>
+                        <p>Как правильно выбирать оборудование для разных танков? Разбор всех вариантов и комбинаций.</p>
+                        <div class="info-meta">
+                            <span><i class="far fa-clock"></i> 12 мин</span>
+                            <span><i class="fas fa-level-up-alt"></i> Продвинутый</span>
+                        </div>
+                        <a href="#" class="btn">Читать гайд</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="community" class="section">
+            <h2 class="section-title">Сообщество</h2>
+            <p>Присоединяйтесь к нашему растущему сообществу танкистов.</p>
+            
+            <div class="info-blocks">
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/clan_wars.jpg" alt="Клановые войны">
+                    <div class="info-content">
+                        <h3>Клановые войны</h3>
+                        <p>Участвуйте в масштабных сражениях кланов за территории и ценные награды. Как создать успешный клан?</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/tournaments.jpg" alt="Турниры">
+                    <div class="info-content">
+                        <h3>Турниры и соревнования</h3>
+                        <p>Календарь всех предстоящих турниров и правила участия. Возможность проявить себя и выиграть призы.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <img src="https://worldoftanks.com/dcont/fb/image/streamers.jpg" alt="Стримеры">
+                    <div class="info-content">
+                        <h3>Топ стримеры WoT</h3>
+                        <p>Лучшие стримеры World of Tanks, у которых можно поучиться. График трансляций и каналы.</p>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="newsletter">
+                <h2>Подпишитесь на нашу рассылку</h2>
+                <p>Получайте еженедельные новости, эксклюзивные материалы и специальные предложения прямо на почту.</p>
+                <div class="form-group">
+                    <input type="email" placeholder="Ваш email">
+                    <button type="submit">Подписаться</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>WoT Portal</h3>
+                <p>Самый полный ресурс о World of Tanks на русском языке. Новости, гайды, статистика и многое другое.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Разделы</h3>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#news">Новости</a></li>
+                    <li><a href="#tanks">Танки</a></li>
+                    <li><a href="#guides">Гайды</a></li>
+                    <li><a href="#community">Сообщество</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Ресурсы</h3>
+                <ul>
+                    <li><a href="#">База знаний</a></li>
+                    <li><a href="#">Калькуляторы</a></li>
+                    <li><a href="#">Статистика</a></li>
+                    <li><a href="#">Рейтинги</a></li>
+                    <li><a href="#">Сравнение танков</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Официальные ресурсы</h3>
+                <ul>
+                    <li><a href="https://worldoftanks.com" target="_blank">Официальный сайт</a></li>
+                    <li><a href="https://worldoftanks.com/ru/news/" target="_blank">Новости WoT</a></li>
+                    <li><a href="https://worldoftanks.com/ru/clans/" target="_blank">Клановые войны</a></li>
+                    <li><a href="https://worldoftanks.com/ru/tournaments/" target="_blank">Турниры</a></li>
+                    <li><a href="https://worldoftanks.com/ru/content/guides/" target="_blank">Официальные гайды</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2024 WoT Portal. Все права защищены. World of Tanks является товарным знаком Wargaming Group Limited.</p>
+            <p>Этот сайт не аффилирован с Wargaming. Все игровые изображения являются собственностью Wargaming.</p>
+        </div>
+    </footer>
+</body>
+</html>
